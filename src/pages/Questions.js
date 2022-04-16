@@ -14,13 +14,10 @@ const Questions = () => {
 
   const {questions, score} = useSelector((state) => state);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [options, setOptions] = useState([]);
 
+const suffleChoices = questions[questionIndex].choices.sort(() => Math.random() - 0.5);
 
-
-  console.log(questions)
-
-  const handleClickAnswer = (e) => {
+  const handleClickAnswer = e => {
     const question = questions[questionIndex];
     if (e.target.textContent === question.answer) {
       dispatch(handleScoreChange(score + 1));
@@ -39,7 +36,7 @@ const Questions = () => {
       <Typography mt={5}>
         {questions[questionIndex].question}
       </Typography>
-      {questions[questionIndex].choices.map((data, id) => (
+      {suffleChoices.map((data, id) => (
         <Box mt={2} key={id}>
           <Button onClick={handleClickAnswer} variant="contained">
             {data}
