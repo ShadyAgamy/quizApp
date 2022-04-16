@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Typography, Grid,Button } from "@mui/material";
-
-import { useDispatch} from "react-redux";
-import {login} from "../../redux/actions";
+import { Grid, Button, Container } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/actions";
+import Input from "../../components/Input";
+import InputError from "../../components/InputError";
 
 import "./styles.scss";
 
 const LogIn = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const initialValues = { username: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -22,22 +22,20 @@ const LogIn = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     await sleep(300);
-     setFormErrors(validate(formValues));
-     setIsSubmit(true);
-    
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
   };
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-        dispatch(login(formValues))
-   }
-  
+      dispatch(login(formValues));
+    }
   }, [dispatch, formErrors, formValues, isSubmit]);
 
-  //function to validate the error
+  // validate the Inputs
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -59,103 +57,59 @@ const LogIn = () => {
     return errors;
   };
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      style={{ minHeight: "100vh" }}
-    >
-      <Box
-        component="form"
-        sx={{
-          margin: 0,
-          width: "100%",
-        }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <TextField
-            size="normal"
-            value={formValues.username}
-            onChange={handleChange}
-            id="outlined-required"
-            label="Name"
-            name="username"
-            style={{
+    <Container maxWidth="sm">
+      <Box textAlign="center">
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Box
+            component="form"
+            sx={{
+              margin: 0,
               width: "100%",
             }}
-          />
-          <Typography
-            sx={{ mb: 2 }}
-            color="red"
-            variant="overline"
-            display="block"
-            gutterBottom
-            style={{
-              textAlign: "left"
-            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
           >
-            {formErrors.username}
-          </Typography>
-          <TextField
-            size="normal"
-            className="inpsdsdut"
-            id="outlined-required"
-            label="Email"
-            type="email"
-            value={formValues.email}
-            onChange={handleChange}
-            name="email"
-            style={{
-              width: "100%",
-            }}
-          />
-          <Typography
-            sx={{ mb: 2 }}
-            className="input"
-            color="red"
-            variant="overline"
-            display="block"
-            gutterBottom
-            style={{
-              textAlign: "left"
-            }}
-          >
-            {formErrors.email}
-          </Typography>
-          <TextField
-            size="normal"
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={formValues.password}
-            onChange={handleChange}
-            name="password"
-            style={{
-              width: "100%",
-            }}
-          />
-          <Typography
-            sx={{ mb: 2 }}
-            color="red"
-            variant="overline"
-            display="block"
-            gutterBottom
-            style={{
-              textAlign: "left"
-            }}
-          >
-            {formErrors.password}
-          </Typography>
-          <Button type="submit" variant="contained">Submit</Button>
-        </div>
+            <div className="logIn_container">
+              <Input
+                value={formValues.username}
+                change={handleChange}
+                label="Name"
+                name="username"
+                type="text"
+              />
+              <InputError errorText={formErrors.username} />
+              <Input
+                value={formValues.email}
+                change={handleChange}
+                label="Email"
+                name="email"
+                type="email"
+              />
+              <InputError errorText={formErrors.email} />
+              <Input
+                value={formValues.password}
+                change={handleChange}
+                label="Password"
+                name="password"
+                type="password"
+              />
+              <InputError errorText={formErrors.password} />
+              <Button className="logIn_btn" type="submit" variant="contained">
+                Submit
+              </Button>
+            </div>
+          </Box>
+        </Grid>
       </Box>
-    </Grid>
+    </Container>
   );
 };
 

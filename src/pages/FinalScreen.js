@@ -4,26 +4,36 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { handleScoreChange } from "../redux/actions";
+import NavBar from "../components/navBar";
+
 
 const FinalScreen = () => {
   const disptach = useDispatch();
   const history = useHistory();
-  const { score } = useSelector((state) => state);
+  const { score, user } = useSelector((state) => state);
 
-  const handleBackToSettings = () => {
+  const handleBack = () => {
     disptach(handleScoreChange(0));
     history.push("/");
   };
 
+  if (user === null) {
+    history.push("/");
+  }
+
   return (
-    <Box mt={30}>
+    <>
+    <NavBar />
+    <Box mt={30} textAlign="center">
       <Typography variant="h3" fontWeight="bold" mb={3}>
-        Final Score {score}
+        Final Score {Math.round(Number(score) * 100 / 7)}%
       </Typography>
-      <Button onClick={handleBackToSettings} variant="outlined">
-        back to settings!
+      <Button onClick={handleBack} variant="outlined">
+        back
       </Button>
     </Box>
+    </>
+    
   );
 };
 

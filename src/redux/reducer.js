@@ -1,4 +1,4 @@
-import { CHANGE_SCORE, LOGIN_SUCCESS, LOGIN_FAIL } from "./actionsTypes";
+import { CHANGE_SCORE, LOGIN_SUCCESS } from "./actionsTypes";
 import { questions } from "../data";
 
 
@@ -22,12 +22,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         user: action.payload.user,
-      };
-    case LOGIN_FAIL:
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: null,
       };
     default:
       return state;

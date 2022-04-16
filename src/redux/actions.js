@@ -1,7 +1,6 @@
 import {
   CHANGE_SCORE,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
 } from "./actionsTypes";
 
 import history from "../history";
@@ -15,7 +14,7 @@ export const login = (user) => (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: { user: user },
     });
-    history.push("/questions");
+    history.push("/exam");
     return Promise.resolve();
   });
 };
