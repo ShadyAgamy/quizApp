@@ -1,28 +1,13 @@
-import {
-  CHANGE_SCORE,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-} from "./actionsTypes";
+import { CHANGE_SCORE, LOGIN_SUCCESS, LOGIN_FAIL } from "./actionsTypes";
+import { questions } from "../data";
+
 
 const initialState = {
   isLoggedIn: false,
   user: null,
   score: 0,
-  questions : [
-    {
-      question: "What is the capital of United Kingdom?",
-      choices: ["Manchester", "Birmingham", "London", "Birmingham"],
-      answer: "London"
-    },
-    
-    {
-      question: "What is the capital of United States?",
-      choices: ["California", "New York", "Miami", "Florida"],
-      answer: "New York"
-    }
-    
-    
-  ]
+  questions: questions.sort(() => Math.random() - 0.5)
+  
 };
 
 const reducer = (state = initialState, action) => {
