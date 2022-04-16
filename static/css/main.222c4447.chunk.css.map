@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/pages/LogIn/styles.scss"],"names":[],"mappings":"AACI,4BACI,UAAA,CACA,YAAA,CACA,cAAA,CACA,eAAA","file":"main.222c4447.chunk.css","sourcesContent":[".logIn_container {\r\n    .logIn_btn {\r\n        width: 100%;\r\n        padding: 10px;\r\n        font-size: 15px;\r\n        margin-top: 10px;\r\n    }\r\n}\r\n\r\n"]}
